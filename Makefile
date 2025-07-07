@@ -1,7 +1,16 @@
 SAIL := ./vendor/bin/sail
 
-sailUpDetach:
+vendor:	composer.lock
+	composer install
+
+sailDown: vendor
+	$(SAIL) down
+
+sailUpDetach: sailDown
 	$(SAIL) up -d
+
+sailArtisanMigrate:
+	$(SAIL) artisan migrate
 
 node_modules: package-lock.json
 	npm install
